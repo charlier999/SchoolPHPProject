@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- 
+	Author: Charles Davis
+	File: login.html
+	Date: February 6, 2020
+	
+	Description: 
+	 An HTML form to take user inputs for login
+ -->
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Login Page</title>
+	</head>
+	<body>
+		<form action="loginhandler.php" method="post">
+		<!-- ON submit call PHP script loginhandler.php -->
+		
+			<h2>Login Page</h2>
+			
+			<hr>
+			
+			<label>User Name</label>
+			<input type="text" name="userName">
+			
+			<br>
+			
+			<label>Password</label>
+			<input type="password" name="userPassword">
+			
+			<hr>
+			
+			<input type="submit" name="userSubmit">
+			
+			<ul>
+				<li><a href="index.html">Main Menu</a></li>
+			</ul>
+			
+		</form>
+	</body>
+</html>
