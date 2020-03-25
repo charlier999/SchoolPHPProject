@@ -21,8 +21,9 @@ include('loginhandler.php');
 	<body>
 		<h2>
 			<?php 
-            echo getloginMessage();
-			echo getUserID(); 
+			startLH();
+			echo "Hello " . getUserID(); 
+			echo getResponce();
 			?>
 		</h2>
 		<ul>
@@ -33,7 +34,7 @@ include('loginhandler.php');
 			</li>
 			<li>
 				<a href="wami.php">
-					Who am I 
+					Account Info
 				</a>
 			</li>
 			<li>

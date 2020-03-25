@@ -16,6 +16,8 @@ include('myfuncs.php');
 
 errorReporting();
 
+$responce = "";
+
 if (!isset($_POST['userSubmit']))
 {
     die("<p><em>ERROR!</em> Submission failed! 
@@ -73,21 +75,40 @@ function loginLHCheck($sql)
             $row = $result->fetch_assoc();
             setUserID(($row['userID']));
             
-            if($row['userModLevel'] == 3) displayLoginMessage(-1);
-            else displayLoginMessage(1);
+            if($row['userModLevel'] == 3) 
+                setResponce(displayLoginMessage(-1, false));
+            else setResponce(displayLoginMessage(1, false));
         }
         // if the username and password are not assocated with
         // a user and/or are not correct
-        else if ($numberRows == 0) displayLoginMessage(0);
+        else if ($numberRows == 0) 
+            setResponce(displayLoginMessage(0, false));
         
         // if there is multiaple users with the same login info
-        else displayLoginMessage(2);
+            else setResponce(displayLoginMessage(2, false));
     }
     else 
     {
         echo "<p><em>ERROR!</em> Submission failed! 
          No data received!</p>";
     }
+}
+
+/**
+ * Returns the string that is outputed to loginresponse.php
+ * @return string 
+ */
+function getResponce()
+{
+    return $responce;
+}
+/**
+ * Sets the variable $responce to the inputed string
+ * @param string $input
+ */
+function setResponce(string $input)
+{
+    $responce = $input;
 }
 
 ?>

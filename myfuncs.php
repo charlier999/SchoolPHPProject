@@ -126,36 +126,48 @@ function getUserNameInput()
  * 2 : Multi Users
  * @param int $input
  */
-function displayLoginMessage(int $input)
+function displayLoginMessage(int $input, bool $links)
 {
     if ($input == 1)
     {
         echo "Login <em>Successful!</em>";
-        echo linkMainMenuString();
-        echo linkCreatePostPageString();
-        echo linkUserInfoPageString();
+        if ($links)
+        {
+            echo linkMainMenuString();
+            echo linkCreatePostPageString();
+            echo linkUserInfoPageString();
+        }
     }
     else if ($input == -1)
     {
-        echo "Login <em>Successful!</em>";
-        echo linkMainMenuString();
-        echo linkCreatePostPageString();
-        echo linkUserInfoPageString();
-        echo linkAdminControlPageString();
+        echo "Login <em>Successful Admin!</em>";
+        if ($links)
+        {
+            echo linkMainMenuString();
+            echo linkCreatePostPageString();
+            echo linkUserInfoPageString();
+            echo linkAdminControlPageString();
+        }
     }
     else if ($input == 0)
     {
         echo "Login Failed!";
-        echo linkLoginPageString();
-        echo linkMainMenuString();
+        if ($links)
+        {
+            echo linkLoginPageString();
+            echo linkMainMenuString();
+        }
     }
     else if ($input == 2)
     {
         echo "<p><em>Their are multiple users
                 with the same login and
                 password</em></p>";
-        echo linkLoginPageString();
-        echo linkMainMenuString();
+        if ($links)
+        {
+            echo linkLoginPageString();
+            echo linkMainMenuString();
+        }
     }
 }
 
