@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!-- 
 	Author: Charles Davis
 	File: viewposts.php
@@ -9,92 +10,59 @@
 <?php
 include('myfuncs.php');
 
-echo linkMainMenuString();
-echo linkLoginPageString();
+errorReporting();
 
 if (GetDBConnect()->select_db(GetDBName()))
 {
-    startVP();
+    $sql = "SELECT *
+            FROM posts
+            ORDER BY postID";
 }
-
-function startVP()
-{
-    echo "<p>Successfully selected the " . GetDBName()
-    . " database!" .  "</p>" ;
-    
-    $tableName = "posts";
-    $sql = getVPsql();
-    
-    if ($result = GetDBConnect()->query($sql))
-    {
-        echo "<h3> Posts </h3>";
-        $numberRows = $result->num_rows;
-        if ($numberRows > 0)
-        {
-            echo html_tableVP(getAllPostsArray($result));
-        }
-        else 
-        {
-            echo "<p> There have been no posts </p>";  
-        }
-    }
-}
-
-/**
- * Creates the SQL Script for listing the posts in the database
- * @return string : SQL Script
- */
-function getVPsql()
-{
-    return "SELECT title, userID_PostBy, postDate, content 
-            FROM posts";
-}
-
-/**
- * Creates a SQL Script for geting 
- * @return string
- */
-function getVPsqlUsers($input)
-{
-    return "SELECT userID, userName 
-            FROM users
-            Where userID='$input'";
-}
-
-function convertuserIDtoUserName($input)
-{
-    $sql = getVPsqlUsers($input);
-    if ($result = GetDBConnect()->query($sql))
-    {
-        $numberRows = $result->num_rows;
-        if($numberRows == 1)
-        {
-            
-        }
-    }
-}
-
-/**
- * Creates an array from the sql of the posts table
- * @param int $result
- * @return array[][] : 
- */
-function getAllPostsArray($result)
-{
-    $posts = array();
-    $index = 0;
-    
-    echo "<p>There are $result->num_rows posts</p>";
-    while ($row = $result->fetch_assoc())
-    {
-        $posts[$index] = array($row['title'],
-                               $row['userID_PostBy'],
-                               $row['postDate'],
-                               $row['content']
-                               );
-        $index++;
-    }
-    return $posts;
-}
-
 ?>
+ 
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Logged In Home</title>
+		
+	</head>
+	<body>
+		<header>
+			<img src="sampleLogo.png" width="40" height="40" alt="LOGO">
+			<h2 style="display: inline">Home</h2>
+		</header>
+		<hr>
+			<ul>
+                <li style='display:inline'><a href='wami.php'>Settings</a></li>
+                <li style='display:inline'><a href='logout.php'>Logout</a></li>
+			</ul>
+		<hr>
+		<table>
+        	<thead>
+        		<tr>
+        			<td>Order</td>
+        			<td>Title</td>
+        			<td>By</td>
+        			<td>Date</td>
+        			<td>Content</td>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<?php 
+        		foreach (GetDBConnect()->query($sql) as $rows)
+        		{
+        		?>
+        			<tr>
+        				<td><?php echo $rows['postID']?></td>
+        				<td><?php echo $rows['title']?></td>
+        				<td><?php echo $rows['userID_PostBy']?></td>
+        				<td><?php echo $rows['postDate']?></td>
+        				<td><?php echo $rows['content']?></td>
+        			</tr>
+        		<?php 
+        		}
+        		?>
+        	</tbody>
+    	</table>
+	</body>
+</html>

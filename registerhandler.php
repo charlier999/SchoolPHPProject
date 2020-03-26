@@ -16,6 +16,8 @@ include('myfuncs.php');
 
 errorReporting();
 
+$response = "";
+
 if (!isset($_POST['userSubmit']))
 {
     die("Submission failed! No data received!");
@@ -34,19 +36,11 @@ if(checkRHAllEmpty())
     $sql = getRHsql();
 
     if ($result = GetDBConnect()->query($sql))
-    {
-        echo "<p>You are now registered!</p>";
-        echo mainMenuLinkString();
-    }
+        include('registersuccess.html');
     else 
-    {
-        echo "<p><em>ERROR!</em> "   . 
-             GetDBConnect()->error() . 
-             " You are not registered!</p>";
-             echo linkMainMenuString();
-             echo linkLoginPageString();
-    }
+        include('registerfailure.php');
 }
+else include('registerfailure.php');
 dbClose();
 
 
@@ -58,18 +52,28 @@ dbClose();
 function checkRHAllEmpty() 
 {
     global $firstName, $lastName, $userName, $userPassword;
-    if (!checkEmpty($firstName, "First Name")
-        && !checkEmpty($lastName, "Last Name")
-        && !checkEmpty($userName, "Username")
-        && !checkEmpty($userPassword, "Password")
-        )
+    if (checkEmpty($firstName))
     {
-        return true;
+        setResponceRH("First Name field can not be empty.");
+        return false;
     }
-    else 
+    else if (checkEmpty($lastName))
     {
-        return false;    
+        setResponceRH("Last Name field can not be empty.");
+        return false;
     }
+    else if (checkEmpty($userName))
+    {
+        setResponce("Username field can not be empty.");
+        return false;
+    }
+    else if (checkEmpty($userPassword))
+    {
+        setResponceRH("Password field can not be empty.");
+        return false;
+    }
+    else return true;    
+    
 }
 
 /**
@@ -88,6 +92,18 @@ function getRHsql()
               VALUES('$firstName' , '$lastName',
                      '$userName','$userPassword')";
 
+}
+
+function getResponceRH()
+{
+    global $response;
+    return $response;
+}
+
+function setResponceRH($input)
+{
+    global $response;
+    $response = $input;
 }
 
 ?>

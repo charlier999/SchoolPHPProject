@@ -13,40 +13,48 @@
 		<title>Registration Form</title>
 	</head>
 	<body>
-	
+		<ul>
+			<li><a href="index.html">Main Menu</a></li>
+			<h3>
+				<p>
+					Already have an account? Login 
+					<a href="login.html"> here</a>
+					.
+				</p>
+			</h3>
+		</ul>
 		<form action="registerhandler.php" method="post">
 		<!-- On submit call PHP sctript pagehandler.php -->
-		
 			<h2>Registration Form</h2>
 			
 			<hr>
 			
 			<label>First Name*</label>
-			<input type="text" name="userFirstName">			<!-- User inputs thier first name -->
+			<input type="text" name="userFirstName">			
+			<!-- User inputs thier first name -->
 			
 			<br>
 			
 			<label>Last Name*</label>
-			<input type="text" name="userLastName">			<!-- User inputs thier last name -->
+			<input type="text" name="userLastName">			
+			<!-- User inputs thier last name -->
 			
 			<br> 
 			
 			<label>User Name*</label>
-			<input type="text" name="userName">			<!-- User inputs thier last name -->
+			<input type="text" name="userName">			
+			<!-- User inputs thier last name -->
 			
 			<br>
 			
 			<label>Password*</label>
-			<input type="password" name="userPassword">			<!-- User inputs thier last name -->
+			<input type="password" name="userPassword">			
+			<!-- User inputs thier last name -->
 			
 			<hr>
 			
-			<input type="submit" name="userSubmit">		<!-- Submit button for when the user is compleated the form -->
-			
-			<ul>
-				<li><a href="index.html">Main Menu</a></li>
-			</ul>
-			
+			<input type="submit" name="userSubmit">		
+			<!-- Submit button for when the user is compleated the form -->
 		</form>
 	</body>
 </html>

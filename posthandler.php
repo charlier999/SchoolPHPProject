@@ -15,6 +15,7 @@ include('myfuncs.php');
 
 errorReporting();
 
+$response = "";
 $tableName = "post";
 $userID = getUserID();
 
@@ -37,28 +38,27 @@ if(checkUserSignedIn())
        if(!checkEmpty($title, "title") 
            && !checkEmpty($content, "content"))   
        {
-           if(!checkProhibitedStrings($title)
-               && !checkProhibitedStrings($content))
-           {
+//            if(!checkProhibitedStrings($title)
+//                && !checkProhibitedStrings($content))
+//            {
                $sql = getPHSQL();
-               if ($result = GetDBConnect()->query($sql))
+               if (GetDBConnect()->query($sql))
                {
-                   echo "Thank you for your post";
+                   $response = "Thank you for your post";
                }
                else
                {
-                   echo "Post not sent";
+                   $response = "Post not sent";
                }
-           }
-           else echo "<p><em>Post not sent!</em></p>    Your post contains prohibited words.";
+//            }
+//            else echo "<p><em>Post not sent!</em></p>    Your post contains prohibited words.";
        }
-       echo linkMainMenuString();
-       echo linkCreatePostPageString();
        dbClose();   
     }
 }
-else echo "<p><em>Error!</em>  You need to be signed in to submit a post</p>";
+else $response = "<p><em>Error!</em>  You need to be signed in to submit a post</p>";
 
+include('createpostresponse.php');
 
 /**
  * Returns the sql script for posthandler.php
@@ -69,5 +69,11 @@ function getPHSQL()
     global $tableName, $userID, $title, $content;
     return "INSERT INTO $tableName (userID_PostBy, title, content)
             Values('$userID','$title','$content')";
+}
+
+function getResponcePH()
+{
+    global $response;
+    return $response;
 }
 ?>

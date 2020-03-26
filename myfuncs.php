@@ -42,13 +42,11 @@ if(!$dbConnect)
  * @param $inputB : (String) The name of the field
  * @return boolean : if empty then true 
  */
-function checkEmpty($inputA, string $inputB)
+function checkEmpty($inputA)
 {
     if ($inputA == NULL || $inputA == EMPTY_STRING)
-    // If the user doesn't enter anything into the username fourm,
-    // the program will issue the error message.
+    // If the user doesn't enter anything into a fourm,
     {
-        echo "<p><em>ERROR!</em> $inputB feild is empty</p>";
         return true;
     }
     else
@@ -74,10 +72,36 @@ function errorReporting()
  */
 function userLogOut()
 {
-    closeSession(false);
-    echo "you have been logged out";
-    echo linkLoginPageString();
-    echo linkMainMenuString();
+    closeSession();
+}
+
+/**
+ * The basic web links to the different pages
+ * @return string
+ */
+function webpageTemplateString()
+{
+    if(!checkUserSignedIn())
+    {
+        return "<li style='display:inline'><a href='login.html'>Login</a></li>
+			    <li style='display:inline'><a href='register.html'>Register</a></li>
+                <li style='display:inline'><a href='index.html'>Home</a></li>
+			   ";
+    }
+    else
+    {
+        if (checkAdminAccess())
+            return "<li style='display:inline'><a href='blogpost.php'>Create Blog Post</a></li>
+                    <li style='display:inline'><a href='wami.php'>Settings</a></li>
+                    <li style='display:inline'><a href='indexLoggedIn.php'>Home</a></li>
+                    <li style='display:inline'><a href='logout.php>Logout</a></li>
+                    <li style='display:inline'><a href='adminAccess.html'>Admin Settings</a></li>";
+        else
+            return "<li style='display:inline'><a href='blogpost.php'>Create Blog Post</a></li>
+                    <li style='display:inline'><a href='wami.php'>Settings</a></li>
+                    <li style='display:inline'><a href='indexLoggedIn.php'>Home</a></li>
+                    <li style='display:inline'><a href='logout.php>Logout</a></li>";
+    }
 }
 
 // loginhandler.php only -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
@@ -128,36 +152,38 @@ function getUserNameInput()
  */
 function displayLoginMessage(int $input, bool $links)
 {
+    $output = "";
     if ($input == 1)
     {
-        echo "Login <em>Successful!</em>";
+        $output = "Login <em>Successful!</em>";
         if ($links)
         {
-            echo linkMainMenuString();
-            echo linkCreatePostPageString();
-            echo linkUserInfoPageString();
+            $output = linkMainMenuString();
+            $output = linkCreatePostPageString();
+            $output = linkUserInfoPageString();
         }
     }
     else if ($input == -1)
     {
-        echo "Login <em>Successful Admin!</em>";
+        $output = "Login <em>Successful!</em>";
         if ($links)
         {
-            echo linkMainMenuString();
-            echo linkCreatePostPageString();
-            echo linkUserInfoPageString();
-            echo linkAdminControlPageString();
+            $output = linkMainMenuString();
+            $output = linkCreatePostPageString();
+            $output = linkUserInfoPageString();
+            $output = linkAdminControlPageString();
         }
     }
     else if ($input == 0)
     {
-        echo "Login Failed!";
+        $output = "Login Failed!";
         if ($links)
         {
-            echo linkLoginPageString();
-            echo linkMainMenuString();
+            $output = linkLoginPageString();
+            $output = linkMainMenuString();
         }
     }
+    
     else if ($input == 2)
     {
         echo "<p><em>Their are multiple users
@@ -169,6 +195,7 @@ function displayLoginMessage(int $input, bool $links)
             echo linkMainMenuString();
         }
     }
+    return $output;
 }
 
 
@@ -252,53 +279,6 @@ function html_tableAH($data = array())
 }
 
 
-// HTML links-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-
-
-/**
- * Returns a string of HTML for a link to the main menu
- */
-function linkMainMenuString()
-{
-    return "<li style='display:inline'><a href='index.html'>Main Menu</a></li>";
-}
-
-/**
- * Returns a string of HTML for a link to the login screen
- * @return string : html script
- */
-function linkLoginPageString()
-{
-    return "<li style='display:inline'><a href='login.html'>Login</a></li>";
-}
-
-/**
- * Returns a string of HTML for a link to the create blog post page
- * @return string : html script
- */
-function linkCreatePostPageString()
-{
-    return "<li style='display:inline'><a href='blogpost.php'>Create Blog Post</a></li>";
-}
-
-/**
- * Returns a string of HTML for a link to the admin menu
- * @return string : html script
- */
-function linkAdminControlPageString()
-{
-    return "<li style='display:inline'><a href='adminAccess.html'>Admin</a></li>";
-}
-
-/**
- * Returns a string of HTML for a link to the user info page
- * @return string : html script
- */
-function linkUserInfoPageString()
-{
-    return "<li style='display:inline'><a href='wami.php'>Your Info</a></li>";
-}
-
 // Database Functions-=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
 
 /**
@@ -307,7 +287,7 @@ function linkUserInfoPageString()
 function dbClose() 
 {
     global $dbConnect;
-    echo "<br>Database ". "milestonedb" . " Closing";
+//     echo "<br>Database ". "milestonedb" . " Closing";
     $dbConnect->close();
 }
 
@@ -352,18 +332,30 @@ function getUserID()
 }
 
 /**
+ * Sets the session varable username to the inputed value
+ * @param $username 
+ */
+function setTempUsername($username)
+{
+    $_SESSION['username'] = $username;
+}
+
+/**
+ * Gets the session varable username value
+ * @return string : username
+ */ 
+function getTempUsername()
+{
+    return $_SESSION['username'];
+}
+
+/**
  * Closes the session. Will display closing message if inputed true
  * @param bool $input
  */
-function closeSession(bool $input)
+function closeSession()
 {
-    if(session_destroy()) // if the session is destroyed
-    {
-        if($input) // if the print setting is true
-        {
-            echo "Session Closed";
-        }
-    }
+   session_destroy();
 }
 
 /**
@@ -372,13 +364,39 @@ function closeSession(bool $input)
  */
 function checkUserSignedIn()
 {
-    if(getUserID() >0)
+    if(getUserID() > 0)
         return true;
     else 
         return false;
 }
 
+/**
+ * Gets the modlevel of the logged in user
+ * @return int : user moderation level
+ */
+function getModLevel()
+{
+    return $_SESSION['modLevel'];
+}
 
+/**
+ * Sets the modlevel of the current logged in user
+ * @param int $input
+ */
+function setModLevel(int $input)
+{
+    $_SESSION['modLevel'] = $input;
+}
+
+/**
+ * Checks to see if the user has permitions 
+ * @return boolean
+ */
+function checkAdminAccess()
+{
+    if (getModLevel() == 3) return true;
+    else return false;
+}
 
 
 

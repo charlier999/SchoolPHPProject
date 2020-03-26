@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 03, 2020 at 10:19 PM
+-- Generation Time: Mar 26, 2020 at 02:35 AM
 -- Server version: 5.7.24
--- PHP Version: 7.2.14
+-- PHP Version: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `azureMilestonedb`
+-- Database: `milestonedb`
 --
 CREATE DATABASE IF NOT EXISTS `milestonedb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `milestonedb`;
@@ -40,6 +40,13 @@ CREATE TABLE `posts` (
   `content` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Database of the posts on the websight';
 
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postID`, `userID_PostBy`, `userID_LastPost`, `moderationAction`, `title`, `postDate`, `content`) VALUES
+(1, 2, '0', 0, 'This is a title', 3252020, 'This is Content');
+
 -- --------------------------------------------------------
 
 --
@@ -54,6 +61,14 @@ CREATE TABLE `users` (
   `userPassword` varchar(45) DEFAULT NULL,
   `userModLevel` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='The users on the blog websight';
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `userFirstName`, `userLastName`, `userName`, `userPassword`, `userModLevel`) VALUES
+(1, 'Admin', 'Admin', 'Admin', 'Admin', 3),
+(2, 'NotAdmin', 'NotAdmin', 'NotAdmin', 'NotAdmin', 0);
 
 --
 -- Indexes for dumped tables
@@ -80,13 +95,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The Id of what post it is';
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The Id of what post it is', AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

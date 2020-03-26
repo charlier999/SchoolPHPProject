@@ -16,9 +16,6 @@
 		<form action="posthandler.php" method="post">
 			<header>
 				<img src="sampleLogo.png" width="40" height="40" alt="LOGO">
-				<!-- Make the sampleLogo.png smaller so 
-    			     that the logo does not take up half of the page 
-    			  -->
 				<h2 style="display: inline">
 					Create Blog Entry
 				</h2>

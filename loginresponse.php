@@ -10,8 +10,8 @@
 
  -->
 <?php 
-include('myfuncs.php');
-include('loginhandler.php');
+include_once('myfuncs.php');
+include_once('loginhandler.php');
 ?>
 <html>
 	<head>
@@ -19,37 +19,22 @@ include('loginhandler.php');
 		<title>Login Response</title>
 	</head>
 	<body>
-		<h2>
-			<?php 
-			startLH();
-			echo "Hello " . getUserID(); 
-			echo getResponce();
-			?>
-		</h2>
 		<ul>
-			<li>
-				<a href="index.html">
-					Main Menu
-				</a>
-			</li>
-			<li>
-				<a href="wami.php">
-					Account Info
-				</a>
-			</li>
-			<li>
-				<a href="blogpost.php">
-					Create a Blog Post
-				</a>
-			</li>
+			<li style='display:inline'><a href='indexLoggedIn.php'>Main Menu</a></li>
+			<li style='display:inline'><a href="wami.php">Settings</a></li>
+			<li style='display:inline'><a href="blogpost.php">Create a Blog Post</a></li>
+			<?php 
+			if (checkAdminAccess())
+		      {
+		          echo "<li style='display:inline'><a href='adminAccess.html'>Admin Settings</a></li>";
+		      }
+		      ?>
 		</ul>
 		<hr>
-		<ul>
-			<li>
-				<a href="adminAccess.html">
-					Admin Debug Page -=- not for final
-				</a>
-			</li>
-		</ul>
+		<h2>
+			<?php 
+			echo "Hello " . getUserNameLH() . "! <p>" . getResponce() . "</p>"; 
+			?>
+		</h2>
 	</body>
 </html>

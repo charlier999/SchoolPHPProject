@@ -16,6 +16,7 @@ include('myfuncs.php');
 
 errorReporting();
 
+$adminCheck = false;
 $responce = "";
 
 if (!isset($_POST['userSubmit']))
@@ -74,18 +75,23 @@ function loginLHCheck($sql)
         {
             $row = $result->fetch_assoc();
             setUserID(($row['userID']));
+            setModLevel($row['userModLevel']);
             
-            if($row['userModLevel'] == 3) 
+            if(checkAdminAccess()) 
+            {
                 setResponce(displayLoginMessage(-1, false));
-            else setResponce(displayLoginMessage(1, false));
+            }
+            else 
+            {
+                setResponce(displayLoginMessage(1, false));
+            }
+            
+            include('loginresponse.php');
         }
         // if the username and password are not assocated with
         // a user and/or are not correct
         else if ($numberRows == 0) 
-            setResponce(displayLoginMessage(0, false));
-        
-        // if there is multiaple users with the same login info
-            else setResponce(displayLoginMessage(2, false));
+            include('loginfailed.html');
     }
     else 
     {
@@ -100,6 +106,7 @@ function loginLHCheck($sql)
  */
 function getResponce()
 {
+    global $responce;
     return $responce;
 }
 /**
@@ -108,7 +115,32 @@ function getResponce()
  */
 function setResponce(string $input)
 {
+    global $responce;
     $responce = $input;
+}
+/**
+ * Returns the boolean of wether the user has admin access
+ * @return boolean : 
+ */
+function getAdminCheck()
+{
+    global $adminCheck;
+    return $adminCheck;
+}
+/**
+ * Sets the boolean of wether the user has admin access
+ * @param bool $input
+ */
+function setAdminCheck(bool $input)
+{
+    global $adminCheck;
+    $adminCheck = $input;
+}
+
+function getUserNameLH()
+{
+    global $userName;
+    return $userName;
 }
 
 ?>
