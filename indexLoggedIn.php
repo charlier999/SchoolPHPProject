@@ -5,7 +5,7 @@
 	Date: Mar 25, 2020
 	
 	Description:
-	
+	Home page for loggged in users
  -->
 <?php 
 include_once 'myfuncs.php';
@@ -14,7 +14,7 @@ include_once 'myfuncs.php';
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Logged In Home</title>
+		<title>Home</title>
 		
 	</head>
 	<body>
@@ -23,10 +23,7 @@ include_once 'myfuncs.php';
 			<h2 style="display: inline">Home</h2>
 		</header>
 		<hr>
-			<ul>
-                <li style='display:inline'><a href='wami.php'>Settings</a></li>
-                <li style='display:inline'><a href='logout.php'>Logout</a></li>
-			</ul>
+		<ul><?php echo webpageTemplateString();?></ul>
 		<hr>
 		<ul>
 			<li><a href='blogpost.php'>Create Blog Post</a></li>

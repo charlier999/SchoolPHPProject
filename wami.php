@@ -6,8 +6,11 @@
 	File: wami.php
 	
 	Description:
-	
-
+	   User's settings
+	   
+    TODO:
+        - Make into an actual settings page
+        - Change to standard layout
  -->
 <?php 
 include('myfuncs.php');

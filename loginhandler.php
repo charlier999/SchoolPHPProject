@@ -5,9 +5,9 @@
 *		Date: Feb 6, 2020
 *
 *		Description:
-*
-*
-*
+*       Handles the users input from the login page 
+*       to determin if they inputed the correct
+*       account login info
 */
 ?>
 <?php 

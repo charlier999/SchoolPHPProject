@@ -5,8 +5,11 @@
  *		Date: Feb 27, 2020
  *
  *		Description:
+ *          The handler for the user's input from blogpost.php
  *
- *
+ *      TODO:
+ *          Fix text filter 
+ *          Remove old debug code
  *
  */
 ?>

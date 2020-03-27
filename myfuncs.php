@@ -5,9 +5,7 @@
 *		Date: Feb 18, 2020
 *
 *		Description:
-*
-*
-*
+*       A general PHP function libary
 */
 
 include('session.php');
@@ -95,7 +93,7 @@ function webpageTemplateString()
                     <li style='display:inline'><a href='wami.php'>Settings</a></li>
                     <li style='display:inline'><a href='indexLoggedIn.php'>Home</a></li>
                     <li style='display:inline'><a href='logout.php>Logout</a></li>
-                    <li style='display:inline'><a href='adminAccess.html'>Admin Settings</a></li>";
+                    <li style='display:inline'><a href='adminSettings.php'>Admin Settings</a></li>";
         else
             return "<li style='display:inline'><a href='blogpost.php'>Create Blog Post</a></li>
                     <li style='display:inline'><a href='wami.php'>Settings</a></li>

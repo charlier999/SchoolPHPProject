@@ -6,8 +6,9 @@
 	File: loginresponse.html
 	
 	Description:
-	Depresiated. no longer used.
+	Login responce for when a user corectly logs in
 
+    TODO: Format the page to the standard page layout and optmize with methods
  -->
 <?php 
 include_once('myfuncs.php');

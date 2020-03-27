@@ -1,15 +1,19 @@
-<?php
-// <!-- 
-//     Author: Charles Davis
-// 	File: registerhandler.php
-// 	Date: January 21, 2020
+<!-- 
+    Author: Charles Davis
+	File: registerhandler.php
+	Date: January 21, 2020
 	
-// 	Description: 
-// 	An PHP form handler to process 
-// 	the user inputs for registration
-// 	from register.html
-// -->
-?>
+	Description: 
+    	An PHP form handler to process 
+    	the user inputs for registration
+    	from register.html
+	
+	TODO:
+	   -Remove debug code
+	   -Bring back any functions from myfuncs.php
+	    that are only used in this file
+-->
+
 <?php 
 //Requires
 include('myfuncs.php');

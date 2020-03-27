@@ -5,7 +5,8 @@
 	Date: Mar 25, 2020
 	
 	Description:
-	
+	   The logged out page for when a user 
+	   logs out of thier account
  -->
 <?php 
 include_once 'myfuncs.php';
@@ -15,7 +16,7 @@ userLogOut();
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Put Title Here</title>
+		<title>Logged out</title>
 		
 	</head>
 	<body>

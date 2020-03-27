@@ -5,7 +5,11 @@
 	File:	
 	
 	Description:
-	
+	   The failed to register page for when a registration 
+	   is not able to complete
+	   
+	TODO:
+	   Change layout to fit standard layout 
 -->
 <?php 
 include_once('registerhandler.php');

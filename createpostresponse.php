@@ -5,7 +5,7 @@
 	Date: Mar 25, 2020
 	
 	Description:
-	
+	The response page for when a user submits a post
  -->
 <?php 
 include_once 'myfuncs.php';
