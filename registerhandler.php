@@ -1,4 +1,5 @@
 <!-- 
+    Project: Milestone
     Author: Charles Davis
 	File: registerhandler.php
 	Date: January 21, 2020
@@ -17,8 +18,6 @@
 <?php 
 //Requires
 include('myfuncs.php');
-
-errorReporting();
 
 $response = "";
 
@@ -58,22 +57,22 @@ function checkRHAllEmpty()
     global $firstName, $lastName, $userName, $userPassword;
     if (checkEmpty($firstName))
     {
-        setResponceRH("First Name field can not be empty.");
+        setResponceRH("<p id='P_Res'>First Name field can not be empty.</p>");
         return false;
     }
     else if (checkEmpty($lastName))
     {
-        setResponceRH("Last Name field can not be empty.");
+        setResponceRH("<p id='P_Res'>Last Name field can not be empty.</p>");
         return false;
     }
     else if (checkEmpty($userName))
     {
-        setResponce("Username field can not be empty.");
+        setResponce("<p id='P_Res'>Username field can not be empty.</p>");
         return false;
     }
     else if (checkEmpty($userPassword))
     {
-        setResponceRH("Password field can not be empty.");
+        setResponceRH("<p id='P_Res'>Password field can not be empty.</p>");
         return false;
     }
     else return true;    

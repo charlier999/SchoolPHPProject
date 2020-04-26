@@ -1,11 +1,12 @@
 <?php
 /*
+ *      Project: Milestone
 *		Author: Charles Davis
 *		File: myfuncs.php
 *		Date: Feb 18, 2020
 *
 *		Description:
-*       A general PHP function libary
+*       A general PHP function libary for background proccesses
 */
 
 include('session.php');
@@ -81,26 +82,76 @@ function webpageTemplateString()
 {
     if(!checkUserSignedIn())
     {
-        return "<li style='display:inline'><a href='login.html'>Login</a></li>
-			    <li style='display:inline'><a href='register.html'>Register</a></li>
-                <li style='display:inline'><a href='index.html'>Home</a></li>
-			   ";
+        return "<h3 id='NavBar'><a href='login.php'>Login</a> | " . 
+                        "<a href='register.html'>Register</a> | " .
+                               "<a href='index.html'>Home</a></h3>";
     }
     else
     {
         if (checkAdminAccess())
-            return "<li style='display:inline'><a href='blogpost.php'>Create Blog Post</a></li>
-                    <li style='display:inline'><a href='wami.php'>Settings</a></li>
-                    <li style='display:inline'><a href='indexLoggedIn.php'>Home</a></li>
-                    <li style='display:inline'><a href='logout.php>Logout</a></li>
-                    <li style='display:inline'><a href='adminSettings.php'>Admin Settings</a></li>";
+            return "<h3 id='NavBar'>" . searchBarString() . "<a href='blogpost.php'>Create Blog Post</a> | " .
+                                            "<a href='wami.php'>My Posts</a> | " .
+                                       "<a href='indexLoggedIn.php'>Home</a> | " .
+                                            "<a href='logout.php'>Logout</a> | " .
+                               "<a href='adminSettings.php'>Admin Settings</a>";
         else
-            return "<li style='display:inline'><a href='blogpost.php'>Create Blog Post</a></li>
-                    <li style='display:inline'><a href='wami.php'>Settings</a></li>
-                    <li style='display:inline'><a href='indexLoggedIn.php'>Home</a></li>
-                    <li style='display:inline'><a href='logout.php>Logout</a></li>";
+            return "<h3 id='NavBar'>" . searchBarString() . "<a href='blogpost.php'>Create Blog Post</a> | " .
+                                             "<a href='wami.php'>My Posts</a> | " .
+                                        "<a href='indexLoggedIn.php'>Home</a> | " .
+                                               "<a href='logout.php'>Logout</a>";
     }
 }
+
+/**
+ * Returns the html script for the search bar
+ * @return string
+ */
+function searchBarString()
+{
+    return "<form id='SeachForm' action='searchHandler.php' method='post' style='display: inline;'>
+			    <input id='SeachB' type='submit' name='submit'  value='Search'>
+                <input id='SeachTB' type='text' name='searchRequest' maxlength='50' size='15'>
+		    </form>";   
+    //style='display:inline; float:right';
+    //style='display:inline'
+}
+
+/**
+ * Returns the username from the inputed ID number
+ * @param $IDNumber : The users ID Number
+ * @return $userName : String | the users username
+ */
+function userIDtoUserName($IDNumber)
+{
+    $temp = strval($IDNumber);
+    if (GetDBConnect()->select_db(GetDBName()))
+    {
+        $sql = "SELECT userID, userName
+            FROM users
+            WHERE userID='$temp'";
+        if ($result = GetDBConnect()->query($sql))
+        { 
+            $row = $result->fetch_assoc();
+            $userName = $row['userName'];
+            return $userName;
+        }
+        else 
+            return "Error: user not found";
+    }
+    else 
+        return "DB Error";
+}
+
+/**
+ * Returns the interpreated date from an int
+ * @param $dateInt : int of date
+ * @return string : Month-Day-Year
+ */
+function dateIntToString(int $dateInt)
+{
+    return date("M-j-Y", $dateInt);
+}
+
 
 // loginhandler.php only -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
 
@@ -148,82 +199,19 @@ function getUserNameInput()
  * 2 : Multi Users
  * @param int $input
  */
-function displayLoginMessage(int $input, bool $links)
+function displayLoginMessage(int $input)
 {
     $output = "";
-    if ($input == 1)
-    {
-        $output = "Login <em>Successful!</em>";
-        if ($links)
-        {
-            $output = linkMainMenuString();
-            $output = linkCreatePostPageString();
-            $output = linkUserInfoPageString();
-        }
-    }
-    else if ($input == -1)
-    {
-        $output = "Login <em>Successful!</em>";
-        if ($links)
-        {
-            $output = linkMainMenuString();
-            $output = linkCreatePostPageString();
-            $output = linkUserInfoPageString();
-            $output = linkAdminControlPageString();
-        }
-    }
-    else if ($input == 0)
-    {
-        $output = "Login Failed!";
-        if ($links)
-        {
-            $output = linkLoginPageString();
-            $output = linkMainMenuString();
-        }
-    }
-    
-    else if ($input == 2)
-    {
-        echo "<p><em>Their are multiple users
-                with the same login and
-                password</em></p>";
-        if ($links)
-        {
-            echo linkLoginPageString();
-            echo linkMainMenuString();
-        }
-    }
+    if ($input == 1) $output = "Login <em>Successful!</em>";
+    else if ($input == -1) $output = "Login <em>Successful!</em>";
+    else if ($input == 0) $output = "Login Failed!";
+    else if ($input == 2) $output = "<p><em>Their are multiple users
+                                with the same login and
+                                password</em></p>";
+    else $output = "$input is not a valid input for this method";
     return $output;
 }
 
-
-// viewposts.php only -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-
-/**
- * Creates a html table from the array inputed
- * Use for only viewposts.php
- * @param array $data
- * @return string
- */
-function html_tableVP($data = array())
-{
-    $rows = array();
-    foreach ($data as $row)
-    {
-        $cells = array();
-        foreach ($row as $cell)
-        {
-            $cells[] = "<td>{$cell}</td>";
-        }
-        $rows[] = "<tr>" . implode('', $cells) . "</tr>";
-    }
-    return "<table class='hci-table'>
-            <th>Title  .</th>
-            <th>User   .</th>
-            <th>Post Date  .</th>
-            <th>Content  .</th>"
-            . implode('', $rows) . "</table>";
-}
 
 // posthandler.php only -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
 
@@ -245,35 +233,6 @@ function checkProhibitedStrings(string $input)
             $output = false;
     }
     return $output;
-}
-
-// adminHandler.php only -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=- -=-
-
-/**
- * Creates a html table from the array inputed
- * Use for only adminHandler.php
- * @param array $data
- * @return string
- */
-function html_tableAH($data = array())
-{
-    $rows = array();
-    foreach ($data as $row)
-    {
-        $cells = array();
-        foreach ($row as $cell)
-        {
-            $cells[] = "<td>{$cell}</td>";
-        }
-        $rows[] = "<tr>" . implode('', $cells) . "</tr>";
-    }
-    return "<table class='hci-table'> 
-            <th>userID  .</th>
-            <th>userName  .</th>
-            <th>userModLevel  .</th>
-            <th>userFirstName  .</th>
-            <th>userLastName  </th>" 
-            . implode('', $rows) . "</table>";
 }
 
 

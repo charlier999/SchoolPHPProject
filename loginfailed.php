@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-
 <!-- 
     Project: Milestone
 	Author: Charles Davis
-	Date: 2/20/2020
-	File: loginresponse.html
+	File: loginfailed.php
+	Date: Mar 31, 2020
 	
 	Description:
-	Login responce for when a user corectly logs in
+	Page for when a user fails the login
  -->
 <?php 
-include_once('myfuncs.php');
-include_once('loginhandler.php');
+include_once 'myfuncs.php';
 ?>
+ 
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Login Response</title>
+		<title>Login Failed</title>
 		<style type="text/css">
-				/* TopPageBar */
+		/* TopPageBar */
 		  #TopPageName
 		  {
 		      display: inline;
 		      font-size:250%;
 		  }
 		  #IMG_Logo{}
+		  
 		  body
 		  {
 		  	background-color: rgb(230, 255, 255);
@@ -34,21 +34,26 @@ include_once('loginhandler.php');
 		  {
 		  	text-aline: left;
 		  }
-    	   #P_Res{}
+		  /*Responces*/
+		  #P_Msg
+		  {
+		      font-size: 150%;
+		  }
+		  #P_Res
+		  {
+		      font-size: 150%;
+		  }
 		</style>
 	</head>
 	<body>
 		<header>
 			<img id='IMG_Logo' src="sampleLogo.png" width="125" height="125" alt="LOGO">
-			<h2 id='TopPageName'>Login Success</h2>
+			<h2 id='TopPageName'>Login Failed</h2>
 		</header>
 		<hr>
 		<?php  echo webpageTemplateString(); ?>
 		<hr>
-		<h2>
-			<?php 
-			echo "<p id='P_Res'>Hello " . getUserNameLH() . "!</p>"; 
-			?>
-		</h2>
+		<p id='P_Res'><?php echo getResponce()?></p>
+		<p id='P_Msg'>Please attempt to login again.</p>
 	</body>
 </html>

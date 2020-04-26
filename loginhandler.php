@@ -1,5 +1,6 @@
 <?php
 /*
+ *      Project: Milestone
 *		Author: Charles Davis
 *		File: loginhandler.php
 *		Date: Feb 6, 2020
@@ -13,8 +14,6 @@
 <?php 
 //requires
 include('myfuncs.php');
-
-errorReporting();
 
 $adminCheck = false;
 $responce = "";
@@ -31,14 +30,19 @@ else
 }
 
 //Selecting database
-if (GetDBConnect()->select_db(GetDBName())) 
+if (GetDBConnect()->select_db(GetDBName()))  // Checks to see if the database is connected
 {
-    if(!checkEmpty($userName,"Username") 
-        && !checkEmpty($userPassword, "Password"))
+    if(!checkEmpty($userName) 
+        && !checkEmpty($userPassword))
     {
         $sql = tableLHConnect($userName, $userPassword);
         loginLHCheck($sql);
-    }           
+    }
+    else 
+    {
+        setResponce("Username or Password fields are empty.");
+        include('loginfailed.php');
+    }
 }
 dbClose();
 
@@ -79,11 +83,11 @@ function loginLHCheck($sql)
             
             if(checkAdminAccess()) 
             {
-                setResponce(displayLoginMessage(-1, false));
+                setResponce(displayLoginMessage(-1));
             }
             else 
             {
-                setResponce(displayLoginMessage(1, false));
+                setResponce(displayLoginMessage(1));
             }
             
             include('loginresponse.php');
@@ -91,12 +95,16 @@ function loginLHCheck($sql)
         // if the username and password are not assocated with
         // a user and/or are not correct
         else if ($numberRows == 0) 
-            include('loginfailed.html');
+        {
+            setResponce("Username or password is incorect.");
+            include('loginfailed.php');
+        }
     }
     else 
     {
-        echo "<p><em>ERROR!</em> Submission failed! 
-         No data received!</p>";
+        setResponce("<p><em>ERROR!</em> Submission failed! 
+         No data received!</p>");
+        include('loginfailed.php');
     }
 }
 

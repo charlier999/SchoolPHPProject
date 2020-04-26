@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 26, 2020 at 02:35 AM
+-- Generation Time: Apr 04, 2020 at 09:18 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.3.7
 
@@ -34,9 +34,9 @@ CREATE TABLE `posts` (
   `postID` int(11) NOT NULL COMMENT 'The Id of what post it is',
   `userID_PostBy` int(11) DEFAULT NULL COMMENT 'The userID of who posted',
   `userID_LastPost` varchar(45) DEFAULT NULL COMMENT 'unknown. TBD later',
-  `moderationAction` int(11) DEFAULT '0' COMMENT 'The moderation action done to the post\n0 = no moderation\n1 = not viewable\n2 = removed  ',
+  `moderationAction` int(11) DEFAULT '0' COMMENT 'The moderation action done to the post | 0 = no moderation : 1 = user deleted : 2 = removed  ',
   `title` varchar(45) DEFAULT NULL,
-  `postDate` int(11) DEFAULT NULL,
+  `postDate` date DEFAULT NULL,
   `content` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Database of the posts on the websight';
 
@@ -45,7 +45,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`postID`, `userID_PostBy`, `userID_LastPost`, `moderationAction`, `title`, `postDate`, `content`) VALUES
-(1, 2, '0', 0, 'This is a title', 3252020, 'This is Content');
+(1, 1, NULL, 0, 'This is a title', '2020-04-02', 'This is the Content in this post./*/');
 
 -- --------------------------------------------------------
 

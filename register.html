@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- 
+    Project: Milestone
 	Author: Charles Davis
 	File: register.html
 	Date: January 21, 2020
@@ -15,49 +16,93 @@
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Registration Form</title>
+		<style type="text/css">
+				/* TopPageBar */
+		  #TopPageName
+		  {
+		      display: inline;
+		      font-size:250%;
+		      
+		  }
+		  #IMG_Logo{}
+		  
+		  body
+		  {
+		  	background-color: rgb(230, 255, 255);
+		  }
+		  
+		  /*All Links Bar*/
+		  #NavBar
+		  {
+		  	text-aline: left;
+		  }
+		  
+		  /*Registration*/
+		  #H3_HaveAccount
+		  {
+		  	text-align: center;
+		  }
+		  #F_Form
+		  {
+		  	margin: auto;
+		  	width: 35%;
+		  	
+		  	font-size: 150%;
+		  	text-align: center;
+		  	
+		  	border-style: solid;
+		  	border-width: thin;
+		  }
+		  #L_FN{}
+		  #I_FN{}
+		  #L_LN{}
+		  #I_LN{}
+		  #L_UN{}
+		  #I_UN{}
+		  #L_P{}
+		  #I_P{}
+		  #B_Submit{}
+		  </style>
 	</head>
 	<body>
-		<ul>
-			<li><a href="index.html">Main Menu</a></li>
-			<h3>
-				<p>
-					Already have an account? Login 
-					<a href="login.html"> here</a>
-					.
-				</p>
-			</h3>
-		</ul>
-		<form action="registerhandler.php" method="post">
+		<header>
+			<img id='IMG_Logo' src="sampleLogo.png" width="125" height="125" alt="LOGO">
+			<h2 id='TopPageName'>Registration</h2>
+		</header>
+		<hr>
+		<h3 id='NavBar'><a href='login.php'>Login</a> | <a href='register.html'>Register</a> | <a href='index.html'> Home</a></h3>
+		<hr>
+		<h3 id='H3_HaveAccount'>Already have an account? Login <a href="login.html">here</a></h3>
+		
+		<form id='F_Form' action="registerhandler.php" method="post">
 		<!-- On submit call PHP sctript pagehandler.php -->
-			<h2>Registration Form</h2>
-			
-			<hr>
-			
-			<label>First Name*</label>
-			<input type="text" name="userFirstName">			
+			<label id='L_FN'>First Name*</label>
+			<br>
+			<input id='I_FN' type="text" name="userFirstName">			
 			<!-- User inputs thier first name -->
 			
 			<br>
 			
-			<label>Last Name*</label>
-			<input type="text" name="userLastName">			
+			<label id='L_LN'>Last Name*</label>
+			<br>
+			<input id='I_LN' type="text" name="userLastName">			
 			<!-- User inputs thier last name -->
 			
 			<br> 
 			
-			<label>User Name*</label>
-			<input type="text" name="userName">			
+			<label id='L_UN'>User Name*</label>
+			<br>
+			<input id='I_UN' type="text" name="userName">			
 			<!-- User inputs thier last name -->
 			
 			<br>
 			
-			<label>Password*</label>
-			<input type="password" name="userPassword">			
+			<label id='L_P'>Password*</label>
+			<br>
+			<input id='I_P' type="password" name="userPassword">			
 			<!-- User inputs thier last name -->
-			
-			<hr>
-			
-			<input type="submit" name="userSubmit">		
+			<br>
+			<input id='B_Submit' type="submit" name="userSubmit">		
 			<!-- Submit button for when the user is compleated the form -->
 		</form>
 	</body>

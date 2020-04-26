@@ -6,7 +6,7 @@
  *  
  *  Description:
  *      This file is to test functions before 
- *      they are added to the main area
+ *      they are added to the main website
  *
  */
 

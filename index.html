@@ -1,31 +1,63 @@
 <!DOCTYPE html>
 <!-- 
+    Project: Milestone
 	Author: Charles Davis
 	File: index.html
 	Date: February 6, 2020
 	
 	Description:
-	Inital Home page
+	Inital Home page for non-logged in users
  -->
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Milestone Project Home</title>
-		
+		<style type="text/css">
+		/* TopPageBar */
+		  #TopPageName
+		  {
+		      display: inline;
+		      font-size:250%;
+		  }
+		  #IMG_Logo{}
+		  
+		  /*All Links Bar*/
+		  #Loginlink
+		  {
+		      display: inline;
+		  }
+		  #Registerlink
+		  {
+		      display: inline;
+		  }
+		  body
+		  {
+		  	  background-color: rgb(230, 255, 255);
+		  }
+		  #Box
+		  {
+		  	margin: auto;
+		  	width: 50%;
+		  	
+		  	font-size: 150%;
+		  	text-align: center;
+		  	
+		  	border-style: double;
+		  	border-width: thick;
+		  }
+		  
+		</style>
 	</head>
 	<body>
 		<header>
-			<img src="sampleLogo.png" width="40" height="40" alt="LOGO">
-			<h2 style="display: inline">Milestone Project Home</h2>
+			<img id='IMG_Logo' src="sampleLogo.png" width="125" height="125" alt="LOGO">
+			<h2 id='TopPageName'>Ice Chewers</h2>
 		</header>
 		<hr>
-		<p>
-			Login or register to gain access to the forms.
-		</p>
-		<ul>
-			<li style='display:inline'><a href="login.html">Login</a></li>
-			<li style='display:inline'><a href="register.html">Register</a></li>
-		</ul>
-		<hr>
+		<div id='Box'>
+			<p id='P_Msg'>Login or register to gain access to the ice chewing forms.</p>
+			<a id='Loginlink' href="login.php">Login</a>
+			<a id='Registerlink' href="register.html">Register</a>
+		</div>
 	</body>
 </html>

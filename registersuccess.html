@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!--
+    Project: Milestone
 	Author: Charles Davis
 	Date:	Mar 25, 2020
 	File:	
@@ -8,27 +9,44 @@
 		Webpage to tell the user that they have
 		successfuly registered thier account
 		
-	TODO:
-		-Conver to php
-		-Change layout to standart layout
 -->
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Registration Success</title>
+		<style type="text/css">
+				/* TopPageBar */
+		  #TopPageName
+		  {
+		      display: inline;
+		  }
+		  #IMG_Logo{}
+		  body
+		  {
+		  	backgroud-color: rgb(230, 255, 255);
+		  }
+		  
+		  /*All Links Bar*/
+		  #NavBar
+		  {
+		  	text-aline: left;
+		  }
+		  #H2_Msg
+		  {
+		  	font-size: 150%;
+		  	text-aline: center;
+		  }
+		  </style>
 	</head>
 	<body>
-		<ul>
-			<li style='display:inline'><a href='index.html'>Main Menu</a></li>
-			<li style='display:inline'><a href='login.html'>Login</a></li>
-		</ul>
-	
+		<header>
+			<img id='IMG_Logo' src="sampleLogo.png" width="125" height="125" alt="LOGO">
+			<h2 id='TopPageName'>Registration</h2>
+		</header>
+		<hr>
+		<h3 id='NavBar'><a href='login.php'>Login</a> | <a href='register.html'>Register</a> | <a href='index.html'> Home</a></h3>
 		<hr>
 		
-		<h2>
-			You are now registered
-		</h2>
-		
-		
+		<h2 id='H2_Msg'>You are now registered</h2>
 	</body>
 </html>
